@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div
+        {
+        margin-top: 10px;
+        }
+        span[id="res"]
+        {
+            color: green;
+            font-size: 1,5rem;
+        }
+    </style>
+</head>
+<body>
+    <h3>Расчет количества месяцев, прошедших с выбранной даты</h3>
+    <div>
+        <label for="chosenDate">Введите дату</label>
+        <input id="chosenDate" type="date" value="">
+    </div>
+    <div>
+       <input type="button" value="Отправить" onclick="send()">
+    </div>
+    <p>Результат:<span id="res"></span></p>
+    <h3>Калькулятор</h3>
+    <div>
+        <label for="oper1">Введите первое число</label>
+        <input id="oper1" type="number" value="0" onchange="calc()">
+    </div>
+    <div>
+        <label for="oper2">Введите второе число</label>
+        <input id="oper2" type="number" value="0" onchange="calc()">
+    </div>
+    <div>
+        <Select id="operation" onchange="calc()">
+            <option>Сложить</option>
+            <option>Вычесть</option>
+            <option>Умножить</option>
+            <option>Разделить</option>
+            <option>Возвести в степень</option>
+            <option>Извлечь квадратный корень первого числа</option>            
+        </Select>
+    </div>
+    <p>Результат:<span id ="res2"></span></p>
+    <script>
+         function send()
+        {
+            let date = document.getElementById("chosenDate").value;                
+            let result = `${Math.floor((new Date(Date.now())- new Date(date))/1000/3600/24/30)} месяцев`;
+            document.getElementById('res').innerText = result;
+        }
+    </script>
+    <script>
+        function calc()
+        {
+            let x = parseInt(document.getElementById("oper1").value);
+            let y = parseInt(document.getElementById("oper2").value);
+            let result = 0;
+            let operation = document.getElementById("operation").value;
+            switch(operation)
+            {
+                case "Сложить":
+                    result = x + y;
+                    break;
+                case "Вычесть":
+                    result = x - y;
+                    break;
+                case "Умножить":
+                    result = x * y;
+                    break;
+                case "Разделить":
+                    result = x / y;
+                    break;
+                case "Возвести в степень":
+                    result = x ** y;
+                    break;
+                case "Извлечь квадратный корень первого числа":
+                    result = Math.sqrt(x);
+                    break;
+                default:
+                    result = "Error!";
+                    break;
+            }
+
+            if (result % 1 !=0)
+            {
+                result = result.toFixed(2);
+            }
+            document.getElementById('res2').innerText = result;
+        }
+    </script>
+</body>
+</html>
