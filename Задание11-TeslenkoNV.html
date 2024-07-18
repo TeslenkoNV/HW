@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Калькулятор гласных и согласных в тексте</h3>
+    <div>
+        <label for="text"><br>Введите текст:<br></label>
+        <input id="text" type="string" value="" style="width: 250px; height: 100px; margin-top: 10px; margin-bottom: 10px;">
+    </div>
+    <div>
+        <input type="button" value="Рассчитать" onclick="loopBegin()">
+    </div>
+    <div>   
+        <p>Количество согласных: <span id="res"></span></p>
+        <p>Количество гласных: <span id="res2"></span></p>
+    </div>
+    <script>  
+        function loopBegin()
+        {
+            let string = document.getElementById("text").value.toLowerCase();
+            let countConsonant = 0;
+            let countVowel = 0;
+            let consonantLetters = "бвгджзйклмнпрстфхцчшщ";
+            let vowelLetters = "аеёиоуыэюя";
+            for (let i = 0; i < string.length; i++)
+            {
+                if(consonantLetters.includes(string[i]))
+                    countConsonant++;
+                else if(vowelLetters.includes(string[i]))
+                    countVowel++;
+            }
+            console.log(countConsonant)
+            console.log(countVowel)
+            document.getElementById('res').innerText = countConsonant;
+            document.getElementById('res2').innerText = countVowel;
+        }
+    </script>
+</body>
+</html>            
