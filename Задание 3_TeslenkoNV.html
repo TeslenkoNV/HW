@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Clocks</title>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200">
+    </canvas>
+    <script>
+        let canvas = document.getElementById("canvas").getContext("2d");
+        function drawClock()
+        {
+            const time = new Date();
+            let hours = time.getHours();
+            let minutes = time.getMinutes();
+            let seconds = time.getSeconds();
+            let radius = canvas.height/2;
+             hours = hours >= 12 ? hours - 12 : hours;
+
+            canvas.save();
+            canvas.clearRect(0, 0, 200, 200);
+            canvas.translate(100, 100);
+            canvas.scale(0.5, 0.5);
+            canvas.rotate(-Math.PI / 2);
+            canvas.strokeStyle = "black";
+            canvas.fill = "white";
+            canvas.lineWidth = 10;
+
+            function aroundClock()
+            {
+                canvas.save();
+                canvas.beginPath();
+                canvas.strokeStyle = "#8C594D";
+                canvas.arc(0, 0, 135, 0, Math.PI * 2, true);
+                canvas.stroke();
+                canvas.restore();
+            }
+
+            function drawHours()
+            {
+                canvas.save();
+                for (let i = 1; i <= 12; i++)
+                {
+                    canvas.beginPath();
+                    canvas.rotate(Math.PI / 6);
+                    canvas.moveTo(100, 0);
+                    canvas.lineTo(120, 0);
+                    canvas.stroke();
+                }
+                canvas.restore();
+            }
+
+            function drawMinutes()
+            {
+                canvas.save();
+                canvas.lineWidth = 4;
+                for (let i = 0; i < 60; i++)
+                {
+                    if (i % 5 != 0)
+                    {
+                        canvas.beginPath();
+                        canvas.moveTo(110, 0);
+                        canvas.lineTo(120, 0);
+                        canvas.stroke();
+                    }
+                    canvas.rotate(Math.PI / 30);
+                }
+                canvas.restore();
+            }
+
+            function drawArrowSeconds()
+            {
+                canvas.save();
+                canvas.lineWidth = 2;
+                canvas.strokeStyle = "#B50000";
+                canvas.fillStyle = "#B50000";
+                canvas.rotate((seconds * Math.PI) / 30);
+                canvas.beginPath();
+                canvas.moveTo(-30, 0);
+                canvas.lineTo(100, 0);
+                canvas.lineCap = "round";
+                canvas.stroke();
+                canvas.restore();
+
+            }
+            function drawArrowMinutes()
+            {
+                canvas.save();
+                canvas.lineWidth = 5;
+                canvas.strokeStyle = "#04050D";
+                canvas.fillStyle = "#04050D";
+                canvas.rotate((Math.PI / 30)* minutes + (Math.PI / 1800) * seconds); 
+                canvas.beginPath();
+                canvas.moveTo(-30, 0);
+                canvas.lineTo(100, 0);
+                canvas.lineCap = "round";
+                canvas.stroke();
+                canvas.restore();
+            }
+                function drawArrowHours()
+            {
+                canvas.save();
+                canvas.lineWidth = 8;
+                canvas.strokeStyle = "#04050D";
+                canvas.fillStyle = "#04050D";
+                canvas.rotate(((Math.PI / 6) * hours + (Math.PI / 360) * minutes + (Math.PI / 21600) * seconds));
+                canvas.beginPath();
+                canvas.moveTo(-30, 0);
+                canvas.lineTo(70, 0);
+                canvas.lineCap = "round";
+                canvas.stroke();
+                canvas.restore();
+            }
+            aroundClock();
+            drawHours();
+            drawMinutes();
+            drawArrowSeconds();
+            drawArrowMinutes()
+            drawArrowHours()
+            canvas.restore();
+            
+            requestAnimationFrame(drawClock);
+        }
+        requestAnimationFrame(drawClock);
+        
+   </script>
+</body>
+</html>
